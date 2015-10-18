@@ -18,4 +18,5 @@ suites:
         - ["private_network", {ip: "192.168.33.10"}]
     run_list:
       - recipe[mesos_demo::default]
+      - recipe[zookeeper_demo::default]
     attributes:

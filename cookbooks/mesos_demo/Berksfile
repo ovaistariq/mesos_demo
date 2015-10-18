@@ -1,3 +1,7 @@
-source "https://supermarket.chef.io"
+source 'https://supermarket.chef.io'
+
+# local cookbooks
+cookbook 'zookeeper_demo', path: '../zookeeper_demo'
+cookbook 'marathon', path: '../marathon'
 
 metadata
