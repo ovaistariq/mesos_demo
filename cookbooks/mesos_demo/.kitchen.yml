@@ -17,6 +17,13 @@ suites:
       network:
         - ["private_network", {ip: "192.168.33.10"}]
     run_list:
-      - recipe[mesos_demo::default]
       - recipe[zookeeper_demo::default]
+      - recipe[mesos_demo::master]
     attributes:
+      master:
+        flags:
+          authenticate: no
+          authenticate_slaves: false
+          logging_level: INFO
+          cluster: 'mesos-sandbox'
+          zk: 'zk://127.0.0.1:2181/mesos'
