@@ -18,5 +18,5 @@
 #
 
 include_recipe 'mesos_demo::hostsfile'
-
 include_recipe 'mesos::master'
+include_recipe 'mesos::slave'

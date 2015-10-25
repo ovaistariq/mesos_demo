@@ -18,7 +18,7 @@
 #
 
 # Add hosts file entries
-hostsfile_entry "192.168.33.10" do
-  hostname "node1"
+hostsfile_entry "192.168.33.11" do
+  hostname "master"
   unique true
 end

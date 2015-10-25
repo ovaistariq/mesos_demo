@@ -19,3 +19,14 @@
 
 # Mesosphere Mesos version.
 default['mesos']['version'] = '0.23.0'
+
+# Master configuration
+default['mesos']['master']['flags']['authenticate'] = false
+default['mesos']['master']['flags']['authenticate_slaves'] = false
+default['mesos']['master']['flags']['logging_level'] = 'INFO'
+default['mesos']['master']['flags']['quorum'] = 1
+default['mesos']['master']['flags']['max_slave_ping_timeouts'] = 10
+
+# Slave configuration
+default['mesos']['slave']['flags']['gc_delay'] = '1days'
+default['mesos']['slave']['flags']['switch_user'] = true
