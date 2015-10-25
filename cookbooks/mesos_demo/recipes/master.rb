@@ -18,5 +18,10 @@
 #
 
 include_recipe 'mesos_demo::hostsfile'
+
 include_recipe 'mesos::master'
+
+include_recipe 'marathon::default'
+include_recipe 'marathon::service'
+
 include_recipe 'mesos::slave'

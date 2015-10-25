@@ -1,10 +1,26 @@
-default['marathon']['home_dir']                           = '/opt/marathon'
+# Marathon package
+default['marathon']['version']            = '0.10.1'
+default['marathon']['source']['url']      = "http://downloads.mesosphere.com/marathon/v#{node['marathon']['version']}/marathon-#{node['marathon']['version']}.tgz"
+default['marathon']['source']['checksum'] = '0c4c78058a26194cf039614e3f88ab4746a534a372cc547e511972909397bf5b'
+
+# Marathon user and directories
+default['marathon']['user']                               = 'marathon'
+default['marathon']['group']                              = 'marathon'
+default['marathon']['home']                               = '/opt/marathon'
 default['marathon']['config_dir']                         = '/etc/marathon'
 default['marathon']['log_dir']                            = '/var/log/marathon'
+
 default['marathon']['jar_source']                         = 'https://s3.amazonaws.com/dl.imedidata.net/marathon/marathon-0.4.1-SNAPSHOT-jar-with-dependencies.jar'
-default['marathon']['user']                               = 'root'
-default['marathon']['group']                              = 'root'
 default['marathon']['java_heap']                          = "#{(node['memory']['total'].to_i - (node['memory']['total'].to_i / 2)) / 1024}m"
+
+# JVM flags
+default['marathon']['jvm']["Xmx#{node['marathon']['java_heap']}"] = true
+
+# Marathon command line flags
+default['marathon']['flags']['master'] = 'http://localhost'
+
+# Marathon service
+default['marathon']['init'] = 'upstart'
 
 default['marathon']['options']['checkpoint']              = nil
 default['marathon']['options']['event_subscriber']        = nil
