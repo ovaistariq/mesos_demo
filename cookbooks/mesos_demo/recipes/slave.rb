@@ -17,4 +17,23 @@
 # limitations under the License.
 #
 
+include_recipe 'apt'
 include_recipe 'mesos::slave'
+
+# Setup the correct zookeeper url for master detection
+file '/etc/mesos/zk' do
+  owner 'root'
+  group 'root'
+  mode 0644
+  content node['mesos']['master']['flags']['zk']
+  action :create
+end
+
+node['mesos_demo']['additional_packages'].each do |pkg|
+  package pkg do
+    action :install
+  end
+end
+
+# Install and configure docker
+include_recipe 'mesos_demo::docker_host'

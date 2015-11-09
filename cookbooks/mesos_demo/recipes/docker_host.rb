@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mesos_demo
-# Recipe:: master
+# Recipe:: docker_host
 #
 # Copyright 2015, Ovais Tariq <me@ovaistariq.net>
 #
@@ -17,24 +17,16 @@
 # limitations under the License.
 #
 
-include_recipe 'apt'
-include_recipe 'mesos::master'
+################
+# Docker service
+################
 
-# Setup the correct zookeeper url for master detection
-file '/etc/mesos/zk' do
-  owner 'root'
-  group 'root'
-  mode 0644
-  content node['mesos']['master']['flags']['zk']
-  action :create
-end
+include_recipe 'apt-docker'
 
-# Setup marathon
-include_recipe 'marathon::default'
-include_recipe 'marathon::service'
-
-node['mesos_demo']['additional_packages'].each do |pkg|
-  package pkg do
-    action :install
-  end
+docker_service 'default' do
+  host ['unix:///var/run/docker.sock', 'tcp://127.0.0.1:2376']
+  version node['docker']['version']
+  labels ['environment:mesos_demo', 'executor:marathon']
+  install_method 'package'
+  action [:create, :start]
 end

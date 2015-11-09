@@ -51,3 +51,9 @@ default['marathon']['zookeeper_server_list'] = [ node['mesos_demo']['zookeeper']
 default['marathon']['zookeeper_port'] = node['mesos_demo']['zookeeper']['port']
 default['marathon']['zookeeper_path'] = node['mesos_demo']['zookeeper']['path']
 default['marathon']['zookeeper_marathon_path'] = 'marathon'
+
+# Additional packages
+default['mesos_demo']['additional_packages'] = %w(curl)
+
+# Docker
+default['docker']['version'] = '1.9.0'
