@@ -43,9 +43,19 @@ default['mesos']['slave']['flags']['gc_delay'] = '1days'
 default['mesos']['slave']['flags']['switch_user'] = true
 default['mesos']['slave']['flags']['master'] = "zk://#{node['mesos_demo']['zookeeper']['host']}:#{node['mesos_demo']['zookeeper']['port']}/#{node['mesos_demo']['zookeeper']['mesos_path']}"
 
+# Update slave configuration to specify the use of the Docker containerizer
+# The order of the parameters to containerizers is important. It specifies the priority used when choosing the containerizer to launch the task.
+default['mesos']['slave']['flags']['containerizers'] = 'docker,mesos'
+
+# Increase the executor timeout to account for the potential delay in pulling a docker image to the slave.
+default['mesos']['slave']['flags']['executor_registration_timeout'] = '5mins'
+
 # Marathon configuration
 default['marathon']['flags']['master'] = "zk://#{node['mesos_demo']['zookeeper']['host']}:#{node['mesos_demo']['zookeeper']['port']}/#{node['mesos_demo']['zookeeper']['mesos_path']}"
 default['marathon']['flags']['zk'] = "zk://#{node['mesos_demo']['zookeeper']['host']}:#{node['mesos_demo']['zookeeper']['port']}/#{node['mesos_demo']['zookeeper']['marathon_path']}"
+
+# Set to at least the executor timeout, in milliseconds, you set on the mesos slaves
+default['marathon']['flags']['task_launch_timeout'] = '300000'
 
 default['marathon']['zookeeper_server_list'] = [ node['mesos_demo']['zookeeper']['host'] ]
 default['marathon']['zookeeper_port'] = node['mesos_demo']['zookeeper']['port']
