@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mesos_demo
-# Recipe:: hostsfile
+# Recipe:: slave
 #
 # Copyright 2015, Ovais Tariq <me@ovaistariq.net>
 #
@@ -17,18 +17,4 @@
 # limitations under the License.
 #
 
-# Add hosts file entries
-hostsfile_entry "192.168.33.11" do
-  hostname "master"
-  unique true
-end
-
-hostsfile_entry "192.168.33.12" do
-  hostname "slave01"
-  unique true
-end
-
-hostsfile_entry "192.168.33.13" do
-  hostname "slave02"
-  unique true
-end
+include_recipe 'mesos::slave'

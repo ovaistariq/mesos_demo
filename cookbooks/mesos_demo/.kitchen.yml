@@ -24,8 +24,39 @@ suites:
       vm_hostname: master
       network:
         - ["private_network", {ip: "192.168.33.11"}]
-        - ["forwarded_port", {guest: 5050, host: 5055}]
-        - ["forwarded_port", {guest: 8080, host: 8088}]
     run_list:
+      - recipe[mesos_demo::hostsfile]
       - recipe[mesos_demo::master]
     attributes:
+      mesos_demo:
+        zookeeper:
+          host: 192.168.33.10
+          port: 2181
+
+  - name: slave01
+    driver:
+      vm_hostname: slave01
+      network:
+        - ["private_network", {ip: "192.168.33.12"}]
+    run_list:
+      - recipe[mesos_demo::hostsfile]
+      - recipe[mesos_demo::slave]
+    attributes:
+      mesos_demo:
+        zookeeper:
+          host: 192.168.33.10
+          port: 2181
+
+  - name: slave02
+    driver:
+      vm_hostname: slave02
+      network:
+        - ["private_network", {ip: "192.168.33.13"}]
+    run_list:
+      - recipe[mesos_demo::hostsfile]
+      - recipe[mesos_demo::slave]
+    attributes:
+      mesos_demo:
+        zookeeper:
+          host: 192.168.33.10
+          port: 2181

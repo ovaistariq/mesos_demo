@@ -17,11 +17,17 @@
 # limitations under the License.
 #
 
-include_recipe 'mesos_demo::hostsfile'
-
 include_recipe 'mesos::master'
 
+# Setup the correct zookeeper url for master detection
+file '/etc/mesos/zk' do
+  owner 'root'
+  group 'root'
+  mode 0644
+  content node['mesos']['master']['flags']['zk']
+  action :create
+end
+
+# Setup marathon
 include_recipe 'marathon::default'
 include_recipe 'marathon::service'
-
-include_recipe 'mesos::slave'
