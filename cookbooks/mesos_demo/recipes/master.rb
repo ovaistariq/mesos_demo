@@ -38,3 +38,21 @@ node['mesos_demo']['additional_packages'].each do |pkg|
     action :install
   end
 end
+
+# Create sample app configs
+directory '/root/apps' do
+  owner 'root'
+  group 'root'
+  mode 0755
+  recursive true
+  action :create
+end
+
+%w(geoserver.json hello_bash.json python3-http-server.json).each do |app_config|
+  cookbook_file "/root/#{app_config}" do
+    source app_config
+    owner 'root'
+    group 'root'
+    mode 0644
+  end
+end

@@ -63,7 +63,7 @@ default['marathon']['zookeeper_path'] = node['mesos_demo']['zookeeper']['path']
 default['marathon']['zookeeper_marathon_path'] = 'marathon'
 
 # Additional packages
-default['mesos_demo']['additional_packages'] = %w(curl)
+default['mesos_demo']['additional_packages'] = %w(curl git)
 
 # Docker
 default['docker']['version'] = '1.9.0'
