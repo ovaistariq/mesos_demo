@@ -49,7 +49,7 @@ directory '/root/apps' do
 end
 
 %w(geoserver.json hello_bash.json python3-http-server.json).each do |app_config|
-  cookbook_file "/root/#{app_config}" do
+  cookbook_file "/root/apps/#{app_config}" do
     source app_config
     owner 'root'
     group 'root'
