@@ -61,19 +61,6 @@ execute 'marathon-extract' do
   only_if { ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}").empty? }
 end
 
-# Setup the jar location in the template on the first-run
-# ruby_block "datadog-purestorage-attributes" do
-#   block do
-#     # inject the dynamically created attribute into the template resource
-#     tpl = resources(template: 'marathon-wrapper')
-#     tpl.variables(
-#       :jar => ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}/target/*/*.jar").first.to_s
-#     )
-#   end
-#
-#   subscribes :create, "execute[marathon-extract]", :immediately
-# end
-
 template 'marathon-wrapper' do
   path     ::File.join(node['marathon']['home'], 'wrapper')
   owner    'root'
